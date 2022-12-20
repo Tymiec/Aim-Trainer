@@ -2,45 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 public class MoveSystem : MonoBehaviour
 {
-    public void MoveForward(InputAction.CallbackContext context)
+    private Rigidbody capsuleRigidbody;
+    private PlayerInput playerInput;
+    private PlayerInputActions playerInputActions;
+
+    private void Awake()
     {
-        // move the player forward
-        Debug.Log("Moving forward! " + context.phase);
-        if (context.phase == InputActionPhase.Started)
-        {
-            transform.Translate(Vector3.forward * Time.deltaTime * 20);
-        }
+        capsuleRigidbody = GetComponent<Rigidbody>();
+        playerInput = GetComponent<PlayerInput>();
+
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+        playerInputActions.Player.Jump.performed += Jump;
+        // playerInputActions.Player.Movement.performed += Movement_performed;
     }
 
-    public void MoveBackward(InputAction.CallbackContext context)
+    private void FixedUpdate() 
+    { ///move the player on update
+        
+        // Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        // float speed = 5f;
+        // capsuleRigidbody.AddForce(new Vector3(inputVector.x, 0, inputVector.y) * speed, ForceMode.Force);    
+
+        // Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        // float speed = 5f;
+        // capsuleRigidbody.AddForce(new Vector3(inputVector.x, 0, inputVector.y) * speed, ForceMode.Force);
+        // Debug.Log("Update!");
+    }
+    public void Movement_performed(InputAction.CallbackContext context)
     {
-        // move the player backward
-        Debug.Log("Moving backward! " + context.phase);
-        if (context.phase == InputActionPhase.Started)
-        {
-            transform.Translate(Vector3.back * Time.deltaTime * 20);
-        }
+        Debug.Log("context: " + context);
+
+        Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        float speed = 5f;
+        capsuleRigidbody.AddForce(new Vector3(inputVector.x, 0, inputVector.y) * speed, ForceMode.Force);
     }
 
-    public void MoveLeft(InputAction.CallbackContext context)
+    public void Jump(InputAction.CallbackContext context)
     {
-        // move the player left
-        Debug.Log("Moving left! " + context.phase);
-        if (context.phase == InputActionPhase.Started)
+        // jump the player
+        // Debug.Log("Jumping! " + context.phase);
+        if (context.phase == InputActionPhase.Performed)
         {
-            transform.Translate(Vector3.left * Time.deltaTime * 20);
-        }
-    }
-
-    public void MoveRight(InputAction.CallbackContext context)
-    {
-        // move the player right
-        Debug.Log("Moving right! " + context.phase);
-        if (context.phase == InputActionPhase.Started)
-        {
-            transform.Translate(Vector3.right * Time.deltaTime * 20);
+            Debug.Log("Jumping!");
+            capsuleRigidbody.AddForce(Vector3.up * 10, ForceMode.Impulse);
         }
     }
 }
