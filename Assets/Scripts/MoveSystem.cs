@@ -42,7 +42,7 @@ public class MoveSystem : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            Debug.Log("Jumping!");
+            // Debug.Log("Jumping!");
             capsuleRigidbody.AddForce(Vector3.up * 10f, ForceMode.Impulse);
         }
     }
