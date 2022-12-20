@@ -16,22 +16,19 @@ public class MoveSystem : MonoBehaviour
 
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
-        playerInputActions.Player.Jump.performed += Jump;
-        // playerInputActions.Player.Movement.performed += Movement_performed;
+        playerInputActions.Player.Jump.performed += Jump; // subscribe to jump event
     }
 
-    private void FixedUpdate() 
-    { ///move the player on update
-        
-        // Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
-        // float speed = 5f;
-        // capsuleRigidbody.AddForce(new Vector3(inputVector.x, 0, inputVector.y) * speed, ForceMode.Force);    
+    void FixedUpdate()
+    {
+        Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        float speed = 5f;
+        // add velocity to player
+        capsuleRigidbody.velocity = new Vector3(inputVector.x, 0, inputVector.y) * speed;
 
-        // Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
-        // float speed = 5f;
-        // capsuleRigidbody.AddForce(new Vector3(inputVector.x, 0, inputVector.y) * speed, ForceMode.Force);
-        // Debug.Log("Update!");
     }
+
+    
     public void Movement_performed(InputAction.CallbackContext context)
     {
         Debug.Log("context: " + context);
@@ -43,12 +40,10 @@ public class MoveSystem : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        // jump the player
-        // Debug.Log("Jumping! " + context.phase);
         if (context.phase == InputActionPhase.Performed)
         {
             Debug.Log("Jumping!");
-            capsuleRigidbody.AddForce(Vector3.up * 10, ForceMode.Impulse);
+            capsuleRigidbody.AddForce(Vector3.up * 10f, ForceMode.Impulse);
         }
     }
 }
