@@ -1,19 +1,10 @@
 {
-    "name": "PlayerInputActions",
+    "name": "PlayerInput",
     "maps": [
         {
-            "name": "Player",
+            "name": "OnFoot",
             "id": "9d8c8ed1-e04d-492d-9076-d5da96dbd604",
             "actions": [
-                {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "d797542f-123d-4f4c-a7cb-da9db7f188a7",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
                 {
                     "name": "Movement",
                     "type": "Value",
@@ -22,22 +13,29 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "96754e92-6275-41ed-8946-4994d5b60c3d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "98cfed4d-a82e-444d-95d2-47c75e40be84",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "bf7f5a2e-aaa2-4ff5-ace1-0b4fed450141",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "2D Vector",
+                    "name": "WSAD",
                     "id": "93586351-d184-4bb8-84b0-3d7f58a82292",
                     "path": "2DVector",
                     "interactions": "",
@@ -90,6 +88,28 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "b1169353-77b1-4102-b8f1-3a47fd773a58",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f5dd351-2076-4bdf-a228-67a7f1a790e9",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
